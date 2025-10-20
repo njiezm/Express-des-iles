@@ -1,0 +1,727 @@
+/* =============================================
+   GLOBAL.CSS - STYLES PARTAGÉS POUR TOUTES LES PAGES
+   ============================================= */
+
+/* =============================================
+   1. SETUP DE BASE ET LAYOUT GLOBAL
+   ============================================= */
+html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+body {
+    background-color: #333; 
+}
+
+/* --- CORRECTION : Layout pour un footer collé en bas (sticky footer) --- */
+.background-container {
+    display: flex; /* Active le mode Flexbox */
+    justify-content: center; /* Centre le contenu horizontalement */
+    min-height: 100vh; /* S'assure que le conteneur prend au moins toute la hauteur de la vue */
+    width: 100%;
+}
+
+.main_view {
+    position: relative;
+    display: flex;
+    flex-direction: column; /* Empile les enfants verticalement */
+    width: 100%; 
+    max-width: 470px;
+    margin: 0;
+    background-image: url('/images/bg.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* --- CORRECTION : La hauteur est gérée par le flex-grow du contenu --- */
+    min-height: 100vh; 
+    z-index: 3;
+}
+
+/* Le contenu principal qui va pousser le footer */
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Prend toute la place verticale disponible */
+}
+
+
+
+.background-filter {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.1); 
+    z-index: 4; 
+    pointer-events: none;
+}
+
+.form-section {
+    width: 100%;
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    z-index: 10; 
+    color: white; 
+    box-sizing: border-box; 
+}
+
+/* --- CORRECTION : Le contenu principal doit pousser le footer --- */
+.game-content-body {
+    background-image: url('/images/bg_content.png');
+    background-size: 100% 100%; 
+    padding: 10px 25px 25px 25px; 
+    flex-grow: 1; /* Pousse le footer vers le bas */
+}
+
+.spins-content-body {
+    background-image: url('/images/bg_content.png');
+    background-size: 100% 100%; 
+    padding: 10px 25px 25px 25px; 
+    flex-grow: 1; /* Pousse le footer vers le bas */
+}
+
+/* Footer global */
+.page-footer-internal {
+    background-image: url('/images/bg5_footer.png');
+    background-size: cover;
+    background-position: bottom center;
+    width: 100%; 
+    padding: 0; 
+    height: 100px; 
+    flex-shrink: 0; /* Empêche le footer de rétrécir */
+}
+
+.page-footer-internal img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+/* =============================================
+   2. STYLES SPÉCIFIQUES À LA PAGE FORMULAIRE
+   ============================================= */
+.form-header {
+    background-image: url('/images/bg_header.png');
+    padding: 45px 25px 0 25px; 
+    flex-shrink: 0;
+}
+
+.form-content-body {
+    background-image: url('/images/bg_content.png');
+    background-size: 100% 100%; 
+    padding: 10px 25px 25px 25px; 
+    flex-grow: 1; 
+}
+
+.dotation-image-container {
+    margin-left: -25px; 
+    margin-right: -25px; 
+    width: auto;
+    margin-top: 110px;
+}
+
+.dotation-img {
+    max-width: 100%; 
+    width: 100%; 
+    height: auto;
+    display: block;
+}
+
+.input-wrapper {
+    margin-bottom: 20px;
+}
+
+.input-field {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    color: #fff !important;
+    padding: 10px 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input-field::placeholder {
+    color: rgba(255, 255, 255, 0.7) !important;
+    opacity: 1;
+}
+
+.checkbox-wrapper {
+    margin-bottom: 15px;
+}
+
+.form-check {
+    display: flex;
+    align-items: flex-start;
+}
+
+.form-check-input {
+    margin-top: 0.15rem;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.form-check-label2 {
+    color: white; 
+    font-size: 0.9rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
+.text-danger {
+    color: #ff4d4f !important;
+    font-size: 0.8em;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+
+/* =============================================
+   3. STYLES SPÉCIFIQUES À LA PAGE DE SÉLECTION
+   ============================================= */
+.select-header {
+    background-image: url('/images/bg_header.png');
+    padding: 45px 25px 0 25px; 
+    flex-shrink: 0;
+}
+
+.select-content-body {
+    background-image: url('/images/bg_content.png');
+    background-size: 100% 100%; 
+    padding: 10px 25px 25px 25px; 
+    flex-grow: 1; 
+}
+
+.destination-card {
+    position: relative;
+    cursor: pointer;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.destination-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.destination-card img {
+    width: 100%;
+    display: block;
+}
+
+.destination-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+}
+
+/* =============================================
+   4. STYLES SPÉCIFIQUES À LA PAGE DE JEU
+   ============================================= */
+.game-header {
+    background-image: url('/images/bg_header.png');
+    padding: 45px 25px 0 25px; 
+    flex-shrink: 0;
+}
+
+.spins-header {
+    background-image: url('/images/bg_header.png');
+    padding: 45px 25px 0 25px; 
+    flex-shrink: 0;
+}
+
+/* --- Map and Points --- */
+.map-container {
+    position: relative;
+    margin-top: 40px;
+}
+
+.map-image {
+    width: 100%;
+    display: block;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.map-point {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 2px solid #007bff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.map-point:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.map-point.selected {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+}
+
+/* --- Modal --- */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.modal-header {
+    border-bottom: 1px solid #dee2e6;
+    padding: 1rem;
+}
+
+.modal-title {
+    margin: 0;
+    color: #333;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 1rem;
+    color: #333;
+}
+
+/* --- Buttons and Alerts --- */
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+
+/* =============================================
+   5. UTILITAIRES ET RESPONSIVE GLOBAL
+   ============================================= */
+.mg-top-5 { margin-top: 5px; }
+.mg-top-10 { margin-top: 10px; }
+.mg-top-20 { margin-top: 20px; }
+.mg-top-30 { margin-top: 30px; }
+.mg-top-40 { margin-top: 40px; }
+
+@media (max-width: 768px) {
+  .form-header,
+  .select-header,
+  .spins-header,
+  .game-header {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 45px;
+  }
+  
+  .form-content-body,
+  .select-content-body,
+  .spins-content-body,
+  .game-content-body {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  .page-footer-internal {
+    padding: 0;
+  }
+  
+  .dotation-image-container {
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-top: 90px;
+  }
+}
+
+/* ==========================================================================
+   Styles RESPONSIVES pour les cadres du jeu
+   ========================================================================== */
+
+/*
+  1. Styles par défaut (pour les mobiles et les petits écrans).
+  Ce sont les valeurs que vous aviez et qui fonctionnent bien sur mobile.
+*/
+.saintes-frame {
+  margin-left: 50px;
+  margin-top: -70px;
+}
+
+.marie-galante-frame {
+  margin-left: 60px;
+  margin-top: -50px;
+}
+
+
+/*
+  2. Styles pour les grands écrans (ordinateurs, tablettes en mode paysage).
+  Ces styles remplacent les styles par défaut ci-dessus lorsque l'écran est assez large.
+  @media (min-width: 768px) signifie "appliquer ces règles uniquement si la largeur de la fenêtre est de 768px ou plus".
+*/
+@media (min-width: 768px) {
+  
+  .saintes-frame {
+    /* MODIFIEZ CES VALEURS pour corriger l'affichage sur ordinateur */
+    margin-left: 50px; /* Exemple, ajustez cette valeur */
+    margin-top: 25px; /* Exemple, ajustez cette valeur */
+  }
+
+  .marie-galante-frame {
+    /* MODIFIEZ CES VALEURS pour corriger l'affichage sur ordinateur */
+    margin-left: 100px; /* Exemple, ajustez cette valeur */
+    margin-top: 65px; /* Exemple, ajustez cette valeur */
+  }
+
+}
+
+/* ==========================================================================
+   NOUVEAUX Styles pour la grille de jeu et les images pleines pages
+   ========================================================================== */
+
+.map-frame-container {
+  position: relative; /* Indispensable pour positionner les enfants */
+  overflow: hidden;   /* Cache ce qui dépasse du cadre */
+}
+
+.map-frame-image {
+  width: 100%;
+  height: 100%;
+  display: block; /* Évite un petit espace en bas de l'image */
+}
+
+/* La grille qui divise le cadre en 4 zones cliquables */
+.map-spots-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  /* Crée 2 colonnes de taille égale */
+  grid-template-columns: 1fr 1fr; 
+  /* Crée 2 lignes de taille égale */
+  grid-template-rows: 1fr 1fr;
+}
+
+/* Chaque zone cliquable de la grille */
+.map-spot-grid {
+  cursor: pointer;
+  /* Effet de survol pour montrer que c'est cliquable */
+  transition: background-color 0.2s ease-in-out;
+}
+
+.map-spot-grid:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Léger voile blanc au survol */
+}
+
+
+
+/* ==========================================================================
+   Styles pour le conteneur de carte et l'overlay des images
+   ========================================================================== */
+
+.map-frame-container {
+  position: relative; /* Indispensable pour positionner les enfants */
+  overflow: hidden;   /* Cache ce qui dépasse du cadre */
+}
+
+/* Style pour les chemins du SVG pour qu'ils soient cliquables mais invisibles */
+.map-path {
+  cursor: pointer;
+  /* fillOpacity: 0.01 est une astuce pour que la zone soit cliquable mais invisible */
+}
+
+/* Conteneur pour les images des lieux sélectionnés */
+.selected-images-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Permet de cliquer à travers les images sur le SVG en dessous */
+}
+
+/* Style pour l'image sélectionnée qui remplit la zone de la grille */
+.selected-location-full-image {
+  position: absolute; /* Permet d'utiliser top, left, width, height */
+  object-fit: cover; /* Couvre toute la zone sans la déformer */
+}
+
+
+/* ==========================================================================
+   Styles pour le conteneur de carte et l'overlay des images
+   ========================================================================== */
+
+.map-frame-container {
+  position: relative; /* Indispensable pour positionner les enfants */
+  overflow: hidden;   /* Cache ce qui dépasse du cadre */
+}
+
+/* Style pour les chemins du SVG pour qu'ils soient cliquables mais invisibles */
+.map-path {
+  cursor: pointer;
+  /* fillOpacity: 0.01 est une astuce pour que la zone soit cliquable mais invisible */
+}
+
+/* Conteneur pour les images des lieux sélectionnés */
+.selected-images-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Permet de cliquer à travers les images sur le SVG en dessous */
+}
+
+/* Style pour l'image sélectionnée qui remplit la zone de la grille */
+.selected-location-full-image {
+  position: absolute; /* Permet d'utiliser top, left, width, height */
+  /* 
+    MODIFICATION IMPORTANTE : 
+    - 'cover' remplit la zone mais peut couper l'image.
+    - 'contain' adapte l'image pour qu'elle tienne ENTIEREMENT dans la zone.
+  */
+  object-fit: contain; 
+}
+
+
+/* ==========================================================================
+   Styles pour le conteneur de carte et l'overlay des images
+   ========================================================================== */
+
+.map-frame-container {
+  position: relative; /* Indispensable pour positionner les enfants */
+  overflow: hidden;   /* Cache ce qui dépasse du cadre */
+}
+
+/* 1. NOUVEAU : Style pour le fond visuel (le SVG non déformé) */
+.map-visual-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: contain; /* Garde les proportions ! */
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none; /* S'assure que cette couche ne bloque pas les clics */
+}
+
+/* 2. MIS À JOUR : Style pour la couche de clic (le SVG invisible et étiré) */
+.map-click-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  /* Les paths sont maintenant 'fill="transparent"', donc pas besoin de style supplémentaire */
+}
+
+/* 3. Conteneur pour les images des lieux sélectionnés (inchangé) */
+.selected-images-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Permet de cliquer à travers les images sur le SVG en dessous */
+}
+
+/* 4. Style pour l'image sélectionnée qui remplit la zone (inchangé) */
+.selected-location-full-image {
+  position: absolute; /* Permet d'utiliser top, left, width, height */
+  object-fit: contain; /* Adapte l'image pour qu'elle tienne ENTIEREMENT dans la zone */
+}
+
+
+/* ==========================================================================
+   Vos styles RESPONSIVES pour les cadres du jeu (inchangés)
+   ========================================================================== */
+.saintes-frame {
+  margin-left: 50px;
+  margin-top: -70px;
+}
+
+.marie-galante-frame {
+  margin-left: 60px;
+  margin-top: -50px;
+}
+
+@media (min-width: 768px) {
+  .saintes-frame {
+    margin-left: 50px; 
+    margin-top: 25px; 
+  }
+
+  .marie-galante-frame {
+    margin-left: 100px; 
+    margin-top: 65px; 
+  }
+}
+
+/* ==========================================================================
+   Styles pour le conteneur de carte et l'overlay des images
+   ========================================================================== */
+
+.map-frame-container {
+  position: relative; /* Indispensable pour positionner les enfants */
+  overflow: hidden;   /* Cache ce qui dépasse du cadre */
+}
+
+/* 1. Style pour le fond visuel (le SVG non déformé) */
+.map-visual-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: contain; /* Garde les proportions ! */
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none; /* S'assure que cette couche ne bloque pas les clics */
+}
+
+/* 2. Style pour la couche de clic (le SVG invisible et étiré) */
+.map-click-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+/* 3. Conteneur pour les images des lieux sélectionnés */
+.selected-images-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Permet de cliquer à travers les images sur le SVG en dessous */
+}
+
+/* 4. Style pour l'image sélectionnée qui remplit la zone */
+.selected-location-full-image {
+  position: absolute; /* Permet d'utiliser top, left, width, height */
+  object-fit: contain; /* Adapte l'image pour qu'elle tienne ENTIEREMENT dans la zone */
+}
+
+
+/* ==========================================================================
+   Vos styles RESPONSIVES pour les cadres du jeu (inchangés)
+   ========================================================================== */
+.saintes-frame {
+  margin-left: 50px;
+  margin-top: -70px;
+}
+
+.marie-galante-frame {
+  margin-left: 60px;
+  margin-top: -50px;
+}
+
+@media (min-width: 768px) {
+  .saintes-frame {
+    margin-left: 50px; 
+    margin-top: 25px; 
+  }
+
+  .marie-galante-frame {
+    margin-left: 100px; 
+    margin-top: 65px; 
+  }
+}
+
+/* --- Styles pour le champ de téléphone personnalisé --- */
+
+.custom-phone-input-container {
+    display: flex;
+    align-items: center;
+    max-width: 280px; /* Largeur totale du champ */
+    margin: 0 auto;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    background-color: #fff;
+}
+
+.custom-country-select {
+    border: none;
+    background-color: #f8f9fa;
+    padding: 8px 12px;
+    border-right: 1px solid #ced4da;
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+    cursor: pointer;
+    font-size: 1rem;
+    text-align: center;
+    /* Empêche le select de prendre trop de place */
+    flex-basis: 120px; 
+    flex-shrink: 0;
+}
+
+.custom-phone-input {
+    border: none;
+    border-radius: 0; /* Le border-radius est géré par le conteneur */
+    flex-grow: 1; /* Prend tout l'espace restant */
+}
+
+/* Pour que le placeholder ne soit pas coupé */
+.custom-phone-input::placeholder {
+    font-size: 0.9em;
+}
