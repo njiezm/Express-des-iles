@@ -12,6 +12,8 @@ import SelectGame from './pages/SelectGame';
 import Spins from './pages/Spins';
 import Termine from './pages/Termine';
 import Wait from './pages/Wait';
+import WinGame from './pages/WinGame';
+import Lose from './pages/Lose';
 
 function App() {
   return (
@@ -22,11 +24,13 @@ function App() {
           <Route path="/select-game" element={<SelectGame />} />
           <Route path="/game/:url" element={<Game />} />
           <Route path="/spins/:destination" element={<Spins />} />
+          <Route path="/win-game/:destination" element={<WinGame />} />
           <Route path="/lose-game/:url" element={<LoseGame />} />
           <Route path="/lose-spin" element={<LoseSpin />} />
           <Route path="/one-participation" element={<OneParticipation />} />
           <Route path="/wait" element={<Wait />} />
           <Route path="/termine" element={<Termine />} />
+          <Route path="/lose" element={<Lose />} />
         </Routes>
       </div>
     </Router>

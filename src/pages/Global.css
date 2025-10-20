@@ -759,3 +759,42 @@ body {
     font-size: 0.9em;
     color: #6c757d !important;
 }
+
+/* 
+  Styles pour le jeu de positionnement sur la carte (version simplifiée avec texte)
+*/
+
+/* Conteneur principal pour le SVG */
+.map-frame-container {
+  position: relative;
+  border-radius: 15px; /* Conserve l'arrondi du cadre */
+  overflow: hidden; /* Cache tout ce qui dépasse */
+}
+
+/* Style pour le SVG interactif */
+.map-svg {
+  width: 100%;
+  height: 100%;
+  display: block; /* Évite les petits espaces sous le SVG */
+}
+
+/* Effet de survol sur les zones cliquables du SVG */
+.map-path {
+  cursor: pointer;
+  transition: fill 0.2s ease-in-out;
+  stroke: #333; /* Ajoute une bordure pour mieux voir les rectangles */
+  stroke-width: 2;
+}
+
+.map-path:hover {
+  fill: rgba(255, 255, 255, 0.7); /* Léger assombrissement au survol */
+}
+
+/* Style pour le texte à l'intérieur du SVG */
+.location-text {
+  font-family: 'YourFontName', sans-serif; /* Optionnel: changez la police si nécessaire */
+  font-weight: bold;
+  pointer-events: none; /* Permet de cliquer à travers le texte sur le rectangle */
+  user-select: none; /* Empêche la sélection du texte */
+  /* La taille de la police (fontSize) est définie directement dans le SVG pour être responsive */
+}
