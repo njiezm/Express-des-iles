@@ -89,11 +89,10 @@ const Form = () => {
         ...formData,
         phone: phoneToSend 
       };
-      
+      alert(JSON.stringify(submissionData, null, 2));
       console.log("--- SOUMISSION DU FORMULAIRE ---");
       console.log("Données envoyées :", submissionData);
       console.log("-------------------------------");
-      
       window.location.href = "/select-game";
     }
   };
