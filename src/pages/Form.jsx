@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import './Global.css'; 
 
 const Form = () => {
-  // --- NOUVEAU : Liste des pays avec drapeaux (emojis) et indicatifs ---
   const countries = [
     { name: 'Martinique', code: 'MQ', dialCode: '596', flag: '🇲🇶', maxLength: 9 },
     { name: 'Guadeloupe', code: 'GP', dialCode: '590', flag: '🇬🇵', maxLength: 9 },
@@ -22,9 +21,7 @@ const Form = () => {
     optin2: false
   });
 
-  // --- NOUVEAU : État pour le pays sélectionné (Martinique par défaut) ---
   const [selectedCountry, setSelectedCountry] = useState(countries[0]);
-  
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
@@ -35,23 +32,23 @@ const Form = () => {
     });
   };
 
-  // --- NOUVEAU : Gestion du changement de pays ---
   const handleCountryChange = (e) => {
     const country = countries.find(c => c.code === e.target.value);
     setSelectedCountry(country);
-    setFormData({ ...formData, phone: '' }); // On vide le numéro quand on change de pays
+    setFormData(prev => ({ ...prev, phone: '' })); // Utilisation de la fonction de mise à jour précédente
   };
 
-  // --- NOUVEAU : Gestion de la saisie du téléphone avec contrôle strict ---
+  // --- FONCTION CLÉ POUR LA SAISIE DU TÉLÉPHONE MODIFIÉE ---
   const handlePhoneChange = (e) => {
     const value = e.target.value;
     
-    // N'accepter que les chiffres
+    // On ne garde que les chiffres
     const numericValue = value.replace(/[^0-9]/g, '');
     
-    // Limiter la longueur à la longueur maximale du pays sélectionné
+    // On limite la longueur
     if (numericValue.length <= selectedCountry.maxLength) {
-      setFormData({ ...formData, phone: numericValue });
+      // Utilisation de la fonction de mise à jour précédente pour garantir l'accès à l'état le plus récent
+      setFormData(prev => ({ ...prev, phone: numericValue }));
     }
   };
 
@@ -62,7 +59,6 @@ const Form = () => {
     if (!formData.lastname.trim()) newErrors.lastname = "Le nom est requis";
     if (!formData.email.trim()) newErrors.email = "L'email est requis";
     
-    // Validation du numéro de téléphone
     if (!formData.phone) {
       newErrors.phone = "Le téléphone est requis";
     } else if (formData.phone.length !== selectedCountry.maxLength) {
@@ -80,21 +76,15 @@ const Form = () => {
     e.preventDefault();
     
     if (validateForm()) {
-      // On assemble l'indicatif et le numéro pour l'envoi
       const phoneToSend = selectedCountry.dialCode + formData.phone;
       
       const submissionData = {
         ...formData,
-        phone: phoneToSend // Le numéro final (ex: 596696703922)
+        phone: phoneToSend 
       };
       
       console.log("--- SOUMISSION DU FORMULAIRE ---");
-      console.log("Prénom:", submissionData.firstname);
-      console.log("Nom:", submissionData.lastname);
-      console.log("Email:", submissionData.email);
-      console.log("Téléphone (envoyé, sans '+'):", submissionData.phone);
-      console.log("Règlement accepté:", submissionData.reglement);
-      console.log("Offres acceptées:", submissionData.optin2);
+      console.log("Données envoyées :", submissionData);
       console.log("-------------------------------");
       
       window.location.href = "/select-game";
@@ -142,7 +132,7 @@ const Form = () => {
                         </div>
                     </div>
 
-                    {/* --- NOUVEAU : Champ de téléphone personnalisé --- */}
+                    {/* --- CHAMP DE TÉLÉPHONE PERSONNALISÉ MODIFIÉ --- */}
                     <div className="row input-wrapper">
                         <div className="col-9 mx-auto">
                             <div className="custom-phone-input-container">
@@ -160,12 +150,15 @@ const Form = () => {
                                 <input 
                                     type="tel" 
                                     inputMode="numeric"
+                                    pattern="[0-9]*"
                                     className="form-control input-field custom-phone-input"
                                     placeholder={`Numéro (${selectedCountry.maxLength} chiffres)`}
                                     name="phone" 
                                     value={formData.phone} 
                                     onChange={handlePhoneChange} 
                                     required 
+                                    autoComplete="tel"
+                                    style={{ color: 'black' }}
                                 />
                             </div>
                             {errors.phone && <p className="text-danger text-center">{errors.phone}</p>}
