@@ -45,6 +45,11 @@ const Form = () => {
     // On ne garde que les chiffres
     const numericValue = value.replace(/[^0-9]/g, '');
     
+    // On empêche que le premier chiffre soit un zéro
+    if (numericValue.length > 0 && numericValue[0] === '0') {
+      return; // On ne met pas à jour l'état si le premier chiffre est un zéro
+    }
+    
     // On limite la longueur
     if (numericValue.length <= selectedCountry.maxLength) {
       // Utilisation de la fonction de mise à jour précédente pour garantir l'accès à l'état le plus récent
@@ -63,6 +68,8 @@ const Form = () => {
       newErrors.phone = "Le téléphone est requis";
     } else if (formData.phone.length !== selectedCountry.maxLength) {
       newErrors.phone = `Le numéro doit contenir ${selectedCountry.maxLength} chiffres.`;
+    } else if (formData.phone[0] === '0') {
+      newErrors.phone = "Le premier chiffre ne peut pas être un zéro.";
     }
     
     if (!formData.reglement) newErrors.reglement = "L'acceptation du règlement est requise";
@@ -150,9 +157,9 @@ const Form = () => {
                                 <input 
                                     type="tel" 
                                     inputMode="numeric"
-                                    pattern="[0-9]*"
+                                    pattern="[1-9][0-9]*"
                                     className="form-control input-field custom-phone-input"
-                                    placeholder={`Numéro (${selectedCountry.maxLength} chiffres)`}
+                                    placeholder={`Numéro (${selectedCountry.maxLength} chiffres, sans 0 au début)`}
                                     name="phone" 
                                     value={formData.phone} 
                                     onChange={handlePhoneChange} 
