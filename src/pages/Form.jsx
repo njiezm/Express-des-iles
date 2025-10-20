@@ -18,7 +18,8 @@ const Form = () => {
     email: '',
     phone: '', // Stocke uniquement le numéro local (ex: 696703922)
     reglement: false,
-    optin2: false
+    optin: "", 
+    bycanal: ""
   });
 
   const [selectedCountry, setSelectedCountry] = useState(countries[0]);
@@ -72,8 +73,13 @@ const Form = () => {
       newErrors.phone = "Le premier chiffre ne peut pas être un zéro.";
     }
     
-    if (!formData.reglement) newErrors.reglement = "L'acceptation du règlement est requise";
-    if (!formData.optin2) newErrors.optin2 = "L'acceptation des offres est requise";
+    if (!formData.reglement) {
+      newErrors.reglement = "Veuillez accepter le règlement du jeu et confirmer avoir plus de 18 ans.";
+    }
+    
+    if (formData.optin === "1" && !formData.bycanal) {
+      newErrors.bycanal = "Veuillez choisir un canal de communication.";
+    }
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -97,129 +103,169 @@ const Form = () => {
     }
   };
 
-  return (
+return (
     <div className="background-container">
-      <div className="main_view"> 
-        
-        <div className="background-filter"></div>
-        
-        <div className="content-wrapper"> 
-            <div className="form-section form-header">
-              <div className="row justify-content-center"> 
-                <div className="col-7 mg-top-30 text-center">
-                  <img src="/images/jeuconcours.png" className="img-fluid" alt="Header" />
-                </div>
-              </div>
-            </div>
+        <div className="main_view"> 
             
-            <div className="form-section form-content-body">
-              <div className="row">
-                <div className="col-11 mg-top-20 dotation-image-container">
-                  <img src="/images/dotation.png" className="img-fluid dotation-img" alt="Texte formulaire" />
-                </div>
-              </div>
-              
-              <div className="row justify-content-center">
-                <div className="col-11 form-fields-container" id="participe">
-                  <form onSubmit={handleSubmit}>
-                    <input type="hidden" name="zone" value="fr" />
-                    
-                    <div className="row input-wrapper">
-                        <div className="col-9 mx-auto">
-                            <input type="text" className="form-control input-field" placeholder="Prénom" name="firstname" value={formData.firstname} onChange={handleChange} required />
-                            {errors.firstname && <p className="text-danger">{errors.firstname}</p>}
-                        </div>
-                    </div>
-
-                    <div className="row input-wrapper">
-                        <div className="col-9 mx-auto">
-                            <input type="text" className="form-control input-field" placeholder="Nom" name="lastname" value={formData.lastname} onChange={handleChange} required />
-                            {errors.lastname && <p className="text-danger">{errors.lastname}</p>}
-                        </div>
-                    </div>
-
-                    {/* --- CHAMP DE TÉLÉPHONE PERSONNALISÉ MODIFIÉ --- */}
-                    <div className="row input-wrapper">
-                        <div className="col-9 mx-auto">
-                            <div className="custom-phone-input-container">
-                                <select 
-                                    value={selectedCountry.code} 
-                                    onChange={handleCountryChange}
-                                    className="custom-country-select"
-                                >
-                                    {countries.map((country) => (
-                                        <option key={country.code} value={country.code}>
-                                            {country.flag} +{country.dialCode}
-                                        </option>
-                                    ))}
-                                </select>
-                                <input 
-                                    type="tel" 
-                                    inputMode="numeric"
-                                    pattern="[1-9][0-9]*"
-                                    className="form-control input-field custom-phone-input"
-                                    placeholder={`Numéro (${selectedCountry.maxLength} chiffres, sans 0 au début)`}
-                                    name="phone" 
-                                    value={formData.phone} 
-                                    onChange={handlePhoneChange} 
-                                    required 
-                                    autoComplete="tel"
-                                    style={{ color: 'black' }}
-                                />
+            <div className="background-filter"></div>
+            
+            <div className="content-wrapper"> 
+                    <div className="form-section form-header">
+                        <div className="row justify-content-center"> 
+                            <div className="col-7 mg-top-30 text-center">
+                                <img src="/images/jeuconcours.png" className="img-fluid" alt="Header" />
                             </div>
-                            {errors.phone && <p className="text-danger text-center">{errors.phone}</p>}
-                        </div>
-                    </div>
-
-                    <div className="row input-wrapper">
-                        <div className="col-9 mx-auto">
-                            <input type="email" className="form-control input-field" placeholder="Email" name="email" value={formData.email} onChange={handleChange} required />
-                            {errors.email && <p className="text-danger">{errors.email}</p>}
                         </div>
                     </div>
                     
-                    <div className="row checkbox-wrapper">
-                        <div className="col-9 mx-auto">
-                            <div className="form-check">
-                                <input className="form-check-input" type="checkbox" id="flexCheckDefaultRole" name="reglement" checked={formData.reglement} onChange={handleChange} required />
-                                <label className="form-check-label2" htmlFor="flexCheckDefaultRole">
-                                    J'accepte le <a href="/pdf/Reglement_2025_CTIG_HelloGuadeloupe.pdf" target="_blank" rel="noopener noreferrer" className="text-white text-decoration-underline">règlement du jeu</a> et je confirme avoir plus de 18ans
-                                </label>
-                                {errors.reglement && <p className="text-danger">{errors.reglement}</p>}
+                    <div className="form-section form-content-body">
+                        <div className="row">
+                            <div className="col-11 mg-top-20 dotation-image-container">
+                                <img src="/images/dotation.png" className="img-fluid dotation-img" alt="Texte formulaire" />
+                            </div>
+                        </div>
+                        
+                        <div className="row justify-content-center">
+                            <div className="col-11 form-fields-container" id="participe">
+                                <form onSubmit={handleSubmit}>
+                                    <input type="hidden" name="zone" value="fr" />
+                                    
+                                    <div className="row input-wrapper">
+                                            <div className="col-9 mx-auto">
+                                                    <input type="text" className="form-control input-field" placeholder="Prénom" name="firstname" value={formData.firstname} onChange={handleChange} required />
+                                                    {errors.firstname && <p className="text-danger">{errors.firstname}</p>}
+                                            </div>
+                                    </div>
+
+                                    <div className="row input-wrapper">
+                                            <div className="col-9 mx-auto">
+                                                    <input type="text" className="form-control input-field" placeholder="Nom" name="lastname" value={formData.lastname} onChange={handleChange} required />
+                                                    {errors.lastname && <p className="text-danger">{errors.lastname}</p>}
+                                            </div>
+                                    </div>
+
+                                    {/* --- CHAMP DE TÉLÉPHONE PERSONNALISÉ MODIFIÉ --- */}
+                                    <div className="row input-wrapper">
+                                            <div className="col-9 mx-auto">
+                                                    <div className="custom-phone-input-container">
+                                                            <select 
+                                                                    value={selectedCountry.code} 
+                                                                    onChange={handleCountryChange}
+                                                                    className="custom-country-select"
+                                                            >
+                                                                    {countries.map((country) => (
+                                                                            <option key={country.code} value={country.code}>
+                                                                                    {country.flag} +{country.dialCode}
+                                                                            </option>
+                                                                    ))}
+                                                            </select>
+                                                            <input 
+                                                                    type="tel" 
+                                                                    inputMode="numeric"
+                                                                    pattern="[1-9][0-9]*"
+                                                                    className="form-control input-field custom-phone-input"
+                                                                    placeholder={`Numéro (${selectedCountry.maxLength} chiffres, sans 0 au début)`}
+                                                                    name="phone" 
+                                                                    value={formData.phone} 
+                                                                    onChange={handlePhoneChange} 
+                                                                    required 
+                                                                    autoComplete="tel"
+                                                                    style={{ color: 'black' }}
+                                                            />
+                                                    </div>
+                                                    {errors.phone && <p className="text-danger text-center">{errors.phone}</p>}
+                                            </div>
+                                    </div>
+
+                                    <div className="row input-wrapper">
+                                            <div className="col-9 mx-auto">
+                                                    <input type="email" className="form-control input-field" placeholder="Email" name="email" value={formData.email} onChange={handleChange} required />
+                                                    {errors.email && <p className="text-danger">{errors.email}</p>}
+                                            </div>
+                                    </div>
+                                    
+                                    {/* Règlement / checkbox */}
+                                    <div className="row input-wrapper">
+                                        <div className="col-9 mx-auto d-flex align-items-start">
+                                            <input
+                                                type="checkbox"
+                                                id="reglement"
+                                                name="reglement"
+                                                checked={!!formData.reglement}
+                                                onChange={handleChange}
+                                                className="form-check-input me-2"
+                                            />
+                                            <label htmlFor="reglement" className="form-check-label" style={{ fontSize: "0.9rem" }}>
+                                                J'accepte le{" "}
+                                                <a
+                                                    href="/reglement"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-warning text-decoration-underline"
+                                                >
+                                                    règlement du jeu
+                                                </a>{" "}
+                                                et confirme avoir plus de 18 ans
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    {/* Opt-in */}
+                                    <div className="row input-wrapper">
+                                        <div className="col-9 mx-auto">
+                                            <label style={{ fontSize: "0.9rem" }}>Souhaitez-vous recevoir des offres commerciales ?</label>
+                                            <select
+                                                name="optin"
+                                                value={formData.optin}
+                                                onChange={handleChange}
+                                                className="form-select"
+                                            >
+                                                <option value="">-- Choisir --</option>
+                                                <option value="1">Oui</option>
+                                                <option value="0">Non</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    {/* Canal (s'affiche si optin = "1") */}
+                                    {formData.optin === "1" && (
+                                        <div className="row input-wrapper">
+                                            <div className="col-9 mx-auto">
+                                                <label style={{ fontSize: "0.9rem" }}>Je souhaite recevoir les communications par :</label>
+                                                <select
+                                                    name="bycanal"
+                                                    value={formData.bycanal}
+                                                    onChange={handleChange}
+                                                    className="form-select"
+                                                >
+                                                    <option value="">-- Choisir --</option>
+                                                    <option value="1">SMS</option>
+                                                    <option value="2">EMAIL</option>
+                                                    <option value="3">EMAIL & SMS</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    <div className="text-center mt-4">
+                                        <button type="submit" className="btn p-0" style={{ background: 'none', border: 'none' }}>
+                                            <img src="/images/btn_valid.png" alt="Valider" className="img-fluid" style={{ maxWidth: "160px" }} />
+                                        </button>
+                                    </div>
+                                    
+                                </form>
                             </div>
                         </div>
                     </div>
-
-                    <div className="row checkbox-wrapper">
-                        <div className="col-9 mx-auto">
-                            <div className="form-check">
-                                <input className="form-check-input" type="checkbox" id="flexCheckDefaultOffers" name="optin2" checked={formData.optin2} onChange={handleChange} required />
-                                <label className="form-check-label2" htmlFor="flexCheckDefaultOffers">
-                                    J'accepte de recevoir les offres commerciales de la part de FRS Express des Îles
-                                </label>
-                                {errors.optin2 && <p className="text-danger">{errors.optin2}</p>}
-                            </div>
-                        </div>
+                    
+                    <div className="form-section page-footer-internal">
+                            <img src="/images/footer.png" className="img-fluid internal-footer-img" alt="FRS Express Footer Image" />
                     </div>
-
-                    <div className="row p-2 justify-content-center">
-                      <div className="col-6 col-sm-6 mg-top-5">
-                        <input type="image" src="/images/btn_valid.png" id="btn_submit" className="img-fluid" alt="Submit" />
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-            
-            <div className="form-section page-footer-internal">
-                <img src="/images/footer.png" className="img-fluid internal-footer-img" alt="FRS Express Footer Image" />
-            </div>
-            
-          </div> 
-      </div>
+                    
+                </div> 
+        </div>
     </div>
-  );
+);
 };
 
 export default Form;
